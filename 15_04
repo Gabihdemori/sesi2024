@@ -1,0 +1,93 @@
+#include <stdio.h>
+#include <locale.h>
+#include <string.h>
+
+float fgts(float sal){
+	return sal * 8 / 100;
+}
+
+float inss(float sal){
+	if (sal <= 1414.01)
+        return sal * 0.075; 
+    else if (sal <= 2666.68)
+        return sal * 0.09 - 21.18; 
+    else if (sal <= 4000.04)
+        return sal * 0.12 - 101.02; 
+    else if (sal <= 7786.03)
+        return sal * 0.14 - 181.18; 
+    else
+        return 7786.02 * 0.14 - 181.18; 
+}
+
+
+float irrf(float sal, float inss){
+	
+	sal= sal-inss;
+	
+    if (sal <= 2259.20){
+    	return 0;
+	}
+    else if (sal <= 2826.65){
+    	return (sal * 0.075) - 169.44; 
+	}
+    else if (sal <= 3751.06){
+    	return (sal * 0.15) - 381.44; 
+	}
+    else if (sal <= 4664.68){
+    	return (sal * 0.225) - 662.77; 
+	}
+    else{
+	}
+        return (sal * 0.275) - 896.00; 		
+}	
+
+
+
+int main()
+{
+    setlocale(LC_ALL, "");
+    char nome[100];
+    float sal, imposto;
+    int opcao;
+
+    printf("Digite o nome do funcionário: ");
+    gets(nome);
+    printf("Digite o salário do funcionário: ");
+    scanf("%f",&sal);
+    
+    do{
+        printf("Digite uma opção:\n1 - FGTS\n2 - INSS\n3 - IRRF\n4 - Salário Líquido\n5 - Sair:\n");
+
+        scanf("%d", &opcao);
+        switch(opcao){
+            case 1:
+
+                imposto = fgts(sal);
+                printf("O FGTS é R$ %.2f\n", imposto);
+
+                break;
+            case 2:
+
+                imposto = inss(sal);
+                printf("O INSS é R$ %.2f\n", imposto);
+
+                break;
+            case 3:
+            	imposto = irrf(sal, inss(sal));
+                printf("O IRRF é R$ %.2f\n", imposto);
+                break;
+            case 4:
+                printf("O Salário Líquido é R$ %.2f\n", sal - inss(sal) - irrf(sal,inss(sal)));
+                break;                
+            case 5:
+
+                printf("Você saiu\n");
+                break;
+            default:
+                printf("Opção inválida.\n");
+        }
+        
+    }while(opcao != 5);
+    
+    return 0;
+}
