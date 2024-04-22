@@ -25,3 +25,31 @@ int main() {
 
     return 0;
 }
+
+
+
+
+
+atividade 2
+
+
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+int main() {
+    srand(time(NULL));
+    int cmp = 25;
+    int vetor[cmp];
+    int i;
+
+    for (i = 0; i < cmp; i++) {
+        vetor[i] = rand() % 101;
+    }
+
+    //Laço para mostrar o vetor
+    for (i = 0; i < cmp; i++) {
+        printf("%d\n", vetor[i]);
+    }
+    return 0;
+}
